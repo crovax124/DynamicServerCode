@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
+const uuid = require("uuid");
 
 const app = express();
 
@@ -42,6 +43,7 @@ for (let index = 0; index < ejsFiles.length; index++) {
 
 app.post(routeNames[2], function (req, res) {
   const restaurant = req.body;
+  restaurant.id = uuid.v4();
   const filePath = path.join(__dirname, "data", "restaurant.json");
 
   const fileData = fs.readFileSync(filePath);
@@ -52,5 +54,23 @@ app.post(routeNames[2], function (req, res) {
 
   res.redirect(routeNames[3]);
 });
+
+app.get('/restaurants/:id', function(req, res) {
+  
+  const restaurantId = req.params.id;
+  const filePath = path.join(__dirname, "data", "restaurant.json");
+
+  const fileData = fs.readFileSync(filePath);
+  const storedRestaurants = JSON.parse(fileData);
+
+  for(const restaurant of storedRestaurants) {
+    if(restaurant.id === restaurantId) {
+       return res.render('restaurant-detail', {restaurant: restaurant});
+    }
+  }
+
+
+})
+
 
 app.listen(3000);
