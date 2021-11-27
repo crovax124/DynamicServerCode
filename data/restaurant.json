@@ -1,0 +1,14 @@
+[  {
+    "name": "Mariatchi",
+    "address": "Bremen",
+    "cuisine": "Deutsch",
+    "website": "https://www.google.com",
+    "description": "Es ist Lecker"
+  },
+  {
+    "name": "McDonalds",
+    "address": "Bremen",
+    "cuisine": "Amerikanisch",
+    "website": "https://www.mcdonalds.com",
+    "description": "Günstig"
+  }]
