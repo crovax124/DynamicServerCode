@@ -1,7 +1,11 @@
-const fs = require("fs");
 const path = require("path");
+
 const express = require("express");
-const uuid = require("uuid");
+
+
+
+const defaultRoutes = require('./routes/default');
+const restaurantRoutes = require('./routes/restaurants')
 
 const app = express();
 
@@ -11,66 +15,17 @@ app.set("view engine", "ejs");
 app.use(express.static("public")); //express to check for files to serve for public in that folder
 app.use(express.urlencoded({ extended: false }));
 
-const htmlPageNames = [
-  "index.html",
-  "restaurants.html",
-  "recommend.html",
-  "confirm.html",
-  "about.html",
-];
-
-const routeNames = ["/", "/restaurants", "/recommend", "/confirm", "/about"];
-
-const ejsFiles = ["index", "restaurants", "recommend", "confirm", "about"];
+app.use('/', defaultRoutes);
+app.use('/', restaurantRoutes);
 
 
-for (let index = 0; index < ejsFiles.length; index++) {
-  app.get(routeNames[index], function (req, res) {
-    const filePath = path.join(__dirname, "data", "restaurant.json");
 
-    const fileData = fs.readFileSync(filePath);
-    const storedRestaurants = JSON.parse(fileData);
-    res.render(ejsFiles[index], {
-
-      numberOfRestaurants: storedRestaurants.length,
-      restaurants: storedRestaurants,
-    });
-
-    // const filePath = path.join(__dirname, "views", htmlPageNames[index]);
-    // res.sendFile(filePath);
-  });
-}
-
-app.post(routeNames[2], function (req, res) {
-  const restaurant = req.body;
-  restaurant.id = uuid.v4();
-  const filePath = path.join(__dirname, "data", "restaurant.json");
-
-  const fileData = fs.readFileSync(filePath);
-  const storedRestaurants = JSON.parse(fileData);
-  storedRestaurants.push(restaurant);
-
-  fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
-
-  res.redirect(routeNames[3]);
+app.use(function(req, res) {
+  res.status(404).render('404');
 });
 
-app.get('/restaurants/:id', function(req, res) {
-  
-  const restaurantId = req.params.id;
-  const filePath = path.join(__dirname, "data", "restaurant.json");
-
-  const fileData = fs.readFileSync(filePath);
-  const storedRestaurants = JSON.parse(fileData);
-
-  for(const restaurant of storedRestaurants) {
-    if(restaurant.id === restaurantId) {
-       return res.render('restaurant-detail', {restaurant: restaurant});
-    }
-  }
-
-
-})
-
+app.use(function(req, res){
+  res.status(500).render('500');
+});
 
 app.listen(3000);

@@ -1,16 +1,1 @@
-[  {
-    "id": "r1",
-    "name": "Mariatchi",
-    "address": "Bremen",
-    "cuisine": "Deutsch",
-    "website": "https://www.google.com",
-    "description": "Es ist Lecker"
-  },
-  {
-    "id": "r2",
-    "name": "McDonalds",
-    "address": "Bremen",
-    "cuisine": "Amerikanisch",
-    "website": "https://www.mcdonalds.com",
-    "description": "Günstig"
-  }]
+[{"id":"r1","name":"Mariatchi","address":"Bremen","cuisine":"Deutsch","website":"https://www.google.com","description":"Es ist Lecker"},{"id":"r2","name":"McDonalds","address":"Bremen","cuisine":"Amerikanisch","website":"https://www.mcdonalds.com","description":"Günstig"},{"name":"Burger King","address":"WEGWEG","cuisine":"AMi Style","website":"https://www.burgerking.com","description":"Yes","id":"4da9890e-fc30-4a0e-95d2-62aa1abcd143"}]
